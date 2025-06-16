@@ -1,0 +1,2 @@
+hi yall, for collaboration purposes we can use GitHub or even Git in general for code sharing and stuffs
+if you want a tutorial to understand git and GitHub check this video out https://www.youtube.com/watch?v=mJ-qvsxPHpY.
