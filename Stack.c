@@ -16,40 +16,43 @@ void push(Stack** pStack, Points value) {
         *pStack = pNew;
 }
 
-bool pop(Stack** pStack, Points* outPoint) {
+Points pop(Stack** pStack) {
         if (*pStack == NULL) {
                 fprintf(stderr, "Stack Underflow!\n");
-                return false;
+                exit(1);
         }
         Stack* pTemp = *pStack;
 
-        *outPoint = pTemp->element;
+        Points value = pTemp->element;
         *pStack = pTemp->pNext;
         free(pTemp);
 
-        return true;
+        return value;
 }
 
-bool top(Stack* pStack, Points* outPoint) {
+Points top(Stack* pStack) {
         if (pStack == NULL) {
                 fprintf(stderr, "Stack is empty!\n");
-                return false;
+                exit(1);
         }
-        *outPoint = pStack->element;
-        return true;
+
+        Points value = pStack->element;
+        return value;
 }
 
-bool next_to_top(Stack* pStack, Points* outPoint) {
+Points next_to_top(Stack* pStack) {
         if (pStack == NULL || pStack->pNext == NULL) {
                 fprintf(stderr, "Stack doesn't have enough elements!\n");
-                return false;
+                exit(1);
         }
 
         Stack* pTemp = pStack->pNext;
-        *outPoint = pTemp->element;
-        return true;
+        Points value = pTemp->element;
+        return value;
 }
 
 bool isEmpty(Stack* pStack) {
         return pStack == NULL;
 }
+
+

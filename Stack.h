@@ -18,7 +18,7 @@ typedef struct _Stack Stack;
 
 void createStack(Stack**);
 void push(Stack**, Points);
-bool pop(Stack**, Points*);
-bool top(Stack*, Points*);
-bool next_to_top(Stack*, Points*);
+Points pop(Stack**);
+Points top(Stack*);
+Points next_to_top(Stack*);
 bool isEmpty(Stack*);
