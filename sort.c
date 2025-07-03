@@ -1,3 +1,10 @@
+/*
+GROUP NUMBER : 45
+    LASTNAME1, FIRSTNAME1: TRINIDAD, NATHAN         SECTION1: S13
+    LASTNAME2, FIRSTNAME2: DIMAUNAHAN, CHELSEA JEI  SECTION2: S14
+    LASTNAME3, FIRSTNAME3: SALAMIDA, GABRIEL        SECTION3: S13
+*/
+
 #include "sort.h"
 
 /*
@@ -8,6 +15,13 @@
     - use selection sort to sort the points based on polar angle
 */
 
+/*
+    Purpose: Locates for the anchor point in the array.
+    Returns: void
+    @param : points is the array of points structures where the anchor will be searched in.
+    @param : n is the problem size
+    Pre-condition: 
+*/
 void findAnchor(Points points[], int n) {
     int minIndex = 0;
     for (int i = 1; i < n; i++) {
@@ -26,59 +40,87 @@ void findAnchor(Points points[], int n) {
 }
 
 /*
-    The cross product determines the relative orientation of three points:
-    - If the result is positive, the points are in counter-clockwise order.
-    - If the result is negative, the points are in clockwise order.
-    - If the result is zero, the points are collinear.
+    Purpose: Computes the cross product of two vectors formed by three points: `a`, `b`, and `anchor`.
+            The cross product determines the relative orientation of the points:
+            - Positive result: Points are in counter-clockwise order.
+            - Negative result: Points are in clockwise order.
+            - Zero result: Points are collinear.
+    Returns: A double value representing the cross product of the vectors.
+    @param : a is the first point in the vector.
+    @param : b is the second point in the vector.
+    @param : anchor is the reference point used to calculate the vectors.
+    Pre-condition: The parameters contain valid values
 */
 double crossProduct(Points a, Points b, Points anchor) {
     return (a.x - anchor.x) * (b.y - anchor.y) - (a.y - anchor.y) * (b.x - anchor.x); 
         // I guess this is like final - initial formula but relative to the anchor point
 }   
 
-// Used when the points have the same polar angle
-double distanceSquared(Points a, Points anchor) {
-    double dx = a.x - anchor.x;
-    double dy = a.y - anchor.y;
-    return dx * dx + dy * dy;
-}
-
-// Compare two points based on their polar angle with respect to the anchor point
-int comparePolar(Points a, Points b, Points anchor) {
-    double cross = crossProduct(a, b, anchor);
-
-    if (cross > 0) {
-        return -1; // left turn, a is before b in polar order
-    } else if (cross < 0) {
-        return 1;  // right turn, b is before a in polar order
-    } 
-    else 
-    {
-        // Same polar angle — use distance
-        double d1 = distanceSquared(a, anchor);
-        double d2 = distanceSquared(b, anchor);
-
-        if (d1 < d2) {
-            return -1; // a is closer to anchor
-        } else {
-            return 1;  // b is closer or same distance
-        }
+/*
+    Purpose: Computes for the polar angles of the points relative to the anchor point.
+    Returns: void
+    @param : points is the array of points structures where the polar angles will be computed.
+    @param : n is the problem size
+    @param : anchor is the point from which the polar angles are computed.
+    Pre-condition: The parameters contain valid values
+*/
+void computePolarAngles(Points points[], int n, Points anchor) {
+    for (int i = 1; i < n; i++) {
+        points[i].polarAngle = atan2(points[i].y - anchor.y, points[i].x - anchor.x);
     }
 }
 
-void selectionSort(Points points[], int n) {
-    Points anchor = points[0]; // The anchor is already the first index
+/*
+    Purpose: Computes the squared distance between two points when two points have the same polar angle.
+    Returns: the squared distance between the two points
+    @param : a is the point whose distance will be computed.
+    @param : anchor is the reference point from which the distance is measured.
+    Pre-condition: The parameters contain valid values
+*/
+double distanceSquared(Points a, Points anchor) {
+    double distX = a.x - anchor.x;
+    double distY = a.y - anchor.y;
+    return distX * distX + distY * distY;
+}
 
-    for (int i = 1; i < n - 1; i++) {   // Start with index 1 since index 0 is the anchor
+/*
+    Purpose: Sorts the points based on their polar angles relative to the anchor point.
+             It uses selection sort to arrange the points in ascending order of polar angle.
+             If two points have the same polar angle, it keeps the point that is farther from the anchor
+             if the slope is negative or vertical, and keeps the point that is closer if the slope is positive.
+    Returns: void
+    @param : points is the array of points structures to be sorted.
+    @param : n is the problem size
+    Pre-condition: The parameters contain valid values
+*/
+void selectionSort(Points points[], int n) {
+    Points anchor = points[0]; // anchor is already at index 0
+
+    for (int i = 1; i < n - 1; i++) {
         int minIndex = i;
 
         for (int j = i + 1; j < n; j++) {
-            if (comparePolar(points[j], points[minIndex], anchor) < 0) {
+            if (points[j].polarAngle < points[minIndex].polarAngle) {
                 minIndex = j;
+            } else if (points[j].polarAngle == points[minIndex].polarAngle) {
+                // If collinear, base it on slope direction
+                double dx = points[j].x - anchor.x;
+                double dy = points[j].y - anchor.y;
+
+                if (dx == 0 || dy / dx < 0) {
+                    // Negative slope or vertical, keep the farther point
+                    if (distanceSquared(points[j], anchor) > distanceSquared(points[minIndex], anchor)) {
+                        minIndex = j;
+                    }
+                } else {
+                    // Positive slope, keep the closer point
+                    if (distanceSquared(points[j], anchor) < distanceSquared(points[minIndex], anchor)) {
+                        minIndex = j;
+                    }
+                }
             }
         }
 
-        // Swap the found minimum point with the current point
         if (minIndex != i) {
             Points temp = points[i];
             points[i] = points[minIndex];
