@@ -10,8 +10,9 @@ GROUP NUMBER : 45
 #include <stdbool.h>
 
 struct _Points {
-    double x_pos;
-    double y_pos;
+    double x;
+    double y;
+    double polarAngle;
 };
 
 typedef struct _Points Points;

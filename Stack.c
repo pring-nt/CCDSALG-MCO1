@@ -5,12 +5,6 @@ GROUP NUMBER : 45
     LASTNAME3, FIRSTNAME3: SALAMIDA, GABRIEL        SECTION3: S13
 */
 
-/*
-   TO DO : ISFULL() 
-  im putting this here to also remind myself 
-   
-*/
-
 #include "Stack.h"
 
 void createStack(Stack **pStack) {
@@ -19,8 +13,7 @@ void createStack(Stack **pStack) {
 
 void push(Stack **pStack, Points value) {
     Stack *pNew = (Stack *)malloc(sizeof(Stack));
-    if (pNew == NULL)
-    {
+    if (pNew == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(1);
     }
@@ -31,8 +24,7 @@ void push(Stack **pStack, Points value) {
 }
 
 Points pop(Stack **pStack) {
-    if (*pStack == NULL)
-    {
+    if (isEmpty(*pStack)) {
         fprintf(stderr, "Stack Underflow!\n");
         exit(1);
     }
@@ -46,8 +38,7 @@ Points pop(Stack **pStack) {
 }
 
 Points top(Stack *pStack) {
-    if (pStack == NULL)
-    {
+    if (isEmpty(pStack)) {
         fprintf(stderr, "Stack is empty!\n");
         exit(1);
     }
@@ -57,8 +48,7 @@ Points top(Stack *pStack) {
 }
 
 Points next_to_top(Stack *pStack) {
-    if (pStack == NULL || pStack->pNext == NULL)
-    {
+    if (isEmpty(pStack) || isNextToTopEmpty(pStack)) {
         fprintf(stderr, "Stack doesn't have enough elements!\n");
         exit(1);
     }
