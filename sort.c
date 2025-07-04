@@ -129,3 +129,120 @@ void selectionSort(Points points[], int n) {
     }
 }
 
+/* Divide Step
+left must be called with 1 within the driver */
+void mergeSort(Points points[], int left, int right)
+{
+	if (left < right)
+	{
+    	int mid = left + (right - l) / 2;
+
+    	/* divides and sorts the first half recursively before
+    	doing the same to the second half */
+    	mergeSort(points, left, mid);
+    	mergeSort(points, mid + 1, right);
+
+    	// merges sorted subarrays
+    	merge(points, left, mid, right);    
+	}   	 
+}
+
+/* Conquer Step */
+void merge(Points points[], int l, int m, int r)
+{
+	int left_length = m - l + 1;
+	int right_length = r - m;    
+
+	// temporary arrays
+	Points temp_left[left_length];
+	Points temp_right[right_length];
+	Points anchor = points[0];
+
+	/* indices for merging step : i for temp_left,
+	j for temp_right, k for the points array */
+	int i = 0, j = 0, k;
+	k = l;		
+
+	// copying contents of left side of array to temp_left
+	for (int i = 0; i < left_length; i++)
+    	temp_left[i] = points[l + i];    
+
+	/* copying contents of right side of array to temp_right.
+	indexed starting from mid value + 1 to copy the right side */
+	for (int i  = 0; i < right_length; i++)
+    	temp_right[i] = points[(m + 1) + i];    
+
+
+	// merging sorted sub arrays
+	while (i  < left_length && j < right_length)
+	{
+		if (temp_left[i].polarAngle < temp_right[j].polarAngle)	
+		{		
+        	points[k] = temp_left[i];
+        	i++;   	 
+			k++;
+    	}   	 
+    	else if (temp_left[i].polarAngle > temp_right[j].polarAngle)	
+		{
+	       	points[k] = temp_right[j];
+        	j++;
+			k++;	
+		}		
+		else // collinear
+		{
+			/* since its collinear , both points contain the same slope 
+		    its therefore possible to just test 1 point to identify if it contains a
+			neg/pos slope or within the vertical */	   
+			double dx = temp_left[i].x - anchor.x;
+			double dy = temp_left[i].y	- anchor.y;
+
+			if (dx == 0 || dy / dx < 0)
+			{
+				// keep the farther point 
+				if (distanceSquared(temp_left[i], anchor) > distanceSquared(temp_right[j], anchor)) 
+				{
+					points[k] = temp_left[i];
+					i++;   	 
+					k++;			
+				}
+				else 
+				{
+				   	points[k] = temp_right[j];
+					j++;
+					k++;			
+				}					
+			}
+			else
+			{
+				// keep the closer point	
+				if (distanceSquared(temp_left[i], anchor) > distanceSquared(temp_right[j], anchor)) 
+				{
+				   	points[k] = temp_right[j];
+					j++;
+					k++;		
+				}
+				else 
+				{
+					points[k] = temp_left[i];
+					i++;   	 
+					k++;
+				}		
+			}		
+    	}				
+	}
+
+	// copies leftover elements if there exists leftovers within the subarrays 
+	while (i  < left_length)
+	{
+      	points[k] = temp_left[i];
+		i++;   	 
+		k++;	
+	}
+
+	while (j < right_length)
+	{
+      	points[k] = temp_right[j];
+     	j++;
+		k++;	
+	}
+}

@@ -22,3 +22,5 @@ double crossProduct(Points a, Points b, Points anchor);
 void computePolarAngles(Points points[], int n, Points anchor);
 double distanceSquared(Points a, Points anchor);
 void selectionSort(Points points[], int n);
+void mergeSort(Points points[], int left, int right);
+void merge(Points points[], int l, int m, int r);

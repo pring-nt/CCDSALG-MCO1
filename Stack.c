@@ -1,3 +1,16 @@
+/*
+GROUP NUMBER : 45
+    LASTNAME1, FIRSTNAME1: TRINIDAD, NATHAN         SECTION1: S13
+    LASTNAME2, FIRSTNAME2: DIMAUNAHAN, CHELSEA JEI  SECTION2: S14
+    LASTNAME3, FIRSTNAME3: SALAMIDA, GABRIEL        SECTION3: S13
+*/
+
+/*
+   TO DO : ISFULL() 
+  im putting this here to also remind myself 
+   
+*/
+
 #include "Stack.h"
 
 void createStack(Stack **pStack) {
