@@ -40,23 +40,6 @@ void findAnchor(Points points[], int n) {
 }
 
 /*
-    Purpose: Computes the cross product of two vectors formed by three points: `a`, `b`, and `anchor`.
-            The cross product determines the relative orientation of the points:
-            - Positive result: Points are in counter-clockwise order.
-            - Negative result: Points are in clockwise order.
-            - Zero result: Points are collinear.
-    Returns: A double value representing the cross product of the vectors.
-    @param : a is the first point in the vector.
-    @param : b is the second point in the vector.
-    @param : anchor is the reference point used to calculate the vectors.
-    Pre-condition: The parameters contain valid values
-*/
-double crossProduct(Points a, Points b, Points anchor) {
-    return (a.x - anchor.x) * (b.y - anchor.y) - (a.y - anchor.y) * (b.x - anchor.x); 
-        // I guess this is like final - initial formula but relative to the anchor point
-}   
-
-/*
     Purpose: Computes for the polar angles of the points relative to the anchor point.
     Returns: void
     @param : points is the array of points structures where the polar angles will be computed.
@@ -64,7 +47,9 @@ double crossProduct(Points a, Points b, Points anchor) {
     @param : anchor is the point from which the polar angles are computed.
     Pre-condition: The parameters contain valid values
 */
-void computePolarAngles(Points points[], int n, Points anchor) {
+void computePolarAngles(Points points[], int n) {
+    Points anchor = points[0];
+    points[0].polarAngle = 0; // The first element of points should already be the anchor
     for (int i = 1; i < n; i++) {
         points[i].polarAngle = atan2(points[i].y - anchor.y, points[i].x - anchor.x);
     }
@@ -130,12 +115,12 @@ void selectionSort(Points points[], int n) {
 }
 
 /* Divide Step
-left must be called with 1 within the driver */
+left must be called with 1 within the driver, right is size - 1 */
 void mergeSort(Points points[], int left, int right)
 {
 	if (left < right)
 	{
-    	int mid = left + (right - l) / 2;
+    	int mid = left + (right - left) / 2;
 
     	/* divides and sorts the first half recursively before
     	doing the same to the second half */

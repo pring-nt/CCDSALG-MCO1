@@ -8,19 +8,13 @@ GROUP NUMBER : 45
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-struct _Points {
-    double x;
-    double y;
-    double polarAngle;
-};
+#include "Stack.h"
 
 typedef struct _Points Points;
 
-void findAnchor(Points points[], int n);
-double crossProduct(Points a, Points b, Points anchor);
-void computePolarAngles(Points points[], int n, Points anchor);
-double distanceSquared(Points a, Points anchor);
-void selectionSort(Points points[], int n);
-void mergeSort(Points points[], int left, int right);
-void merge(Points points[], int l, int m, int r);
+void findAnchor(Points*, int);
+void computePolarAngles(Points*, int);
+double distanceSquared(Points, Points);
+void selectionSort(Points*, int);
+void mergeSort(Points*, int, int);
+void merge(Points*, int, int, int);
