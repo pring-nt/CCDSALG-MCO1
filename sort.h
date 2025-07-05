@@ -10,9 +10,9 @@ GROUP NUMBER : 45
 #include <math.h>
 #include "stack.h"
 
-void findAnchor(Points*, int);
-void computePolarAngles(Points*, int);
+void findAnchor(Points[], int);
+void computePolarAngles(Points[], int);
 double distanceSquared(Points, Points);
-void selectionSort(Points*, int);
-void mergeSort(Points*, int, int);
-void merge(Points*, int, int, int);
+void selectionSort(Points[], int);
+void mergeSort(Points[], int, int);
+void merge(Points[], int, int, int);

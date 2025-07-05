@@ -124,10 +124,8 @@ void selectionSort(Points points[], int n) {
 	@param : left is the index of the first point to be sorted inside the points array (in this case, index 1)
 	@param : right is the index of the last point to be sorted inside the points array (in this case, index size-1)
 	Pre-condition: Assumes functions findAnchor() and computePolarAngles() are already called prior and that the values
-               	passed are valid.  
+               	passed are valid. Left must be called with 1 within the driver, right is size - 1  
 */ 
-
-// left must be called with 1 within the driver, right is size - 1
 void mergeSort(Points points[], int left, int right)
 {
 	if (left < right)
@@ -161,7 +159,6 @@ void mergeSort(Points points[], int left, int right)
 	Pre-condition: Assumes functions findAnchor() and computePolarAngles() are already called prior and that the values
                	passed are valid.  
 */
-
 void merge(Points points[], int l, int m, int r)
 {
 	int left_length = m - l + 1;
