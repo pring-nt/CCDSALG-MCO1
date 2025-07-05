@@ -27,7 +27,7 @@ double crossProduct(Points top, Points new, Points nextToTop) {
 
 /*
 	Purpose: Determines the convex hull of a set of points using a graham scan algorithm with a
-         	selection sort method.	 
+         	merge sort method.	 
 	Returns: A pointer to a dynamically allocated stack data structure.
 	@param : points is the array of points structures to be sorted.
 	@param : n is the problem size
@@ -81,7 +81,7 @@ Stack* grahamScan(Points points[], int n) {
 	/* 2. Remaining points are then sorted using the specified sorting algorithm based on the polar angle
 	relative to the anchor */
     computePolarAngles(points, n);
-	selectionSort(points, n);
+	mergeSort(points, 1, n - 1);
 
     // All points are collinear edge case
     bool allCollinear = true;
