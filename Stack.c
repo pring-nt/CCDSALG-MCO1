@@ -5,7 +5,7 @@ GROUP NUMBER : 45
     LASTNAME3, FIRSTNAME3: SALAMIDA, GABRIEL        SECTION3: S13
 */
 
-#include "Stack.h"
+#include "stack.h"
 
 /*
     Purpose: Initializes an empty stack by setting the stack pointer to NULL.

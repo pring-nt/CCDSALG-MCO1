@@ -8,7 +8,7 @@ GROUP NUMBER : 45
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "Stack.h"
+#include "stack.h"
 
 void findAnchor(Points*, int);
 void computePolarAngles(Points*, int);
