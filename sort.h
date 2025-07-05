@@ -10,8 +10,6 @@ GROUP NUMBER : 45
 #include <math.h>
 #include "Stack.h"
 
-typedef struct _Points Points;
-
 void findAnchor(Points*, int);
 void computePolarAngles(Points*, int);
 double distanceSquared(Points, Points);

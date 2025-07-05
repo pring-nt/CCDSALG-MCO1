@@ -48,7 +48,7 @@ Points top(Stack *pStack) {
 }
 
 Points next_to_top(Stack *pStack) {
-    if (isEmpty(pStack) || isNextToTopEmpty(pStack)) {
+    if (isEmpty(pStack) || pStack->pNext == NULL) {
         fprintf(stderr, "Stack doesn't have enough elements!\n");
         exit(1);
     }
