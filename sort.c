@@ -114,8 +114,20 @@ void selectionSort(Points points[], int n) {
     }
 }
 
-/* Divide Step
-left must be called with 1 within the driver, right is size - 1 */
+/*
+	Purpose: Sorts the points based on their polar angles relative to the anchor point.
+         	This is the first part of a merge sort algorithm that recursively divides the points array to different
+         	subarrays that are then sorted and merged together by another helper function referred to as merge.
+
+	Returns: void
+	@param : points is the array of points structures to be sorted.
+	@param : left is the index of the first point to be sorted inside the points array (in this case, index 1)
+	@param : right is the index of the last point to be sorted inside the points array (in this case, index size-1)
+	Pre-condition: Assumes functions findAnchor() and computePolarAngles() are already called prior and that the values
+               	passed are valid.  
+*/ 
+
+// left must be called with 1 within the driver, right is size - 1
 void mergeSort(Points points[], int left, int right)
 {
 	if (left < right)
@@ -132,7 +144,24 @@ void mergeSort(Points points[], int left, int right)
 	}   	 
 }
 
-/* Conquer Step */
+/*
+	Purpose: Sorts the points based on their polar angles relative to the anchor point.
+         	This is the second part of a merge sort algorithm that merges the sub arrays that were previously divided.
+         	This function sorts in ascending order by comparing the polar angles of the two points from the left and right sub arrays
+         	and copies them back into the points array.
+
+         	In the case that two points contain the same polar angle. This function keeps the point that is farther from the anchor,
+         	if the slope is negative or vertical, and keeps the point that is closer if the slope is positive.
+
+	Returns: void
+	@param : points is the array of points structures to be sorted.
+	@param : l is the leftmost index or simply the first point to be sorted inside the points array (in this case, index 1)
+	@param : m is the middle value of the range of elements to be sorted
+	@param : r is the rightmost index or simply the last point to be sorted inside the points array (in this case, index size-1)
+	Pre-condition: Assumes functions findAnchor() and computePolarAngles() are already called prior and that the values
+               	passed are valid.  
+*/
+
 void merge(Points points[], int l, int m, int r)
 {
 	int left_length = m - l + 1;

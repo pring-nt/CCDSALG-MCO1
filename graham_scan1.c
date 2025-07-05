@@ -24,6 +24,14 @@ double crossProduct(Points top, Points new, Points nextToTop) {
         // Finds the cross product of 2 points relative to an anchor
 }   
 
+/*
+	Purpose: Determines the convex hull of a set of points using a graham scan algorithm with a
+         	selection sort method.	 
+	Returns: A pointer to a dynamically allocated stack data structure.
+	@param : points is the array of points structures to be sorted.
+	@param : n is the problem size
+*/
+
 Stack* grahamScan(Points points[], int n) {
     int i;
     Points nextPoint;
